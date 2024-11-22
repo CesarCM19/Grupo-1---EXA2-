@@ -110,11 +110,4 @@ public class Menu extends JFrame {
         });
         Principal.add(btnSalir);
     }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            Menu menuWindow = new Menu();
-            menuWindow.setVisible(true);
-        });
-    }
 }
