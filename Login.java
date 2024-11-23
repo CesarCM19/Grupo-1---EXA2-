@@ -9,8 +9,8 @@ public class Login extends JFrame {
     private JPanel registerPanel;
     private CardLayout cardLayout;
 
-    private static final String DB_URL = "jdbc:mysql://localhost:3306/reservas_villa_mon_coeur"; // Cambiar a la base de
-                                                                                                 // datos del examen
+    private static final String DB_URL = "jdbc:mysql://localhost:3306/github"; // Cambiar a la base de
+                                                                               // datos del examen
     private static final String DB_USER = "root";
     private static final String DB_PASSWORD = "myrf0424"; // Cambiar a contraseña de la base de datos del examen
 
@@ -184,14 +184,12 @@ public class Login extends JFrame {
     }
 
     private void openRegisterWindow() {
-        // Crear una nueva ventana para registrar usuario y contraseña
-        JFrame registerWindow = new JFrame("Registro Nuevo Usuario");
-        registerWindow.setSize(400, 350);
-        registerWindow.setLocationRelativeTo(null); // Centrar la ventana
+        JFrame registerWindow = new JFrame("Registro de Nuevo Usuario");
+        registerWindow.setSize(500, 600);
+        registerWindow.setLocationRelativeTo(null);
         registerWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-        // Crear un panel con el mismo fondo
-        JPanel registerPanel = new JPanel() {
+        JPanel registerPanel = new JPanel(new GridBagLayout()) {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
@@ -199,11 +197,15 @@ public class Login extends JFrame {
                 g.drawImage(backgroundImage.getImage(), 0, 0, getWidth(), getHeight(), this);
             }
         };
-        registerPanel.setLayout(new GridBagLayout());
+
         registerPanel.setOpaque(false);
 
-        // Crear los campos de texto para el usuario y la contraseña
-        JTextField userField = new JTextField(20);
+        // Crear campos de texto para los datos
+        JTextField firstNameField = new JTextField(20);
+        JTextField secondNameField = new JTextField(20);
+        JTextField firstLastNameField = new JTextField(20);
+        JTextField secondLastNameField = new JTextField(20);
+        JTextField usernameField = new JTextField(20);
         JPasswordField passwordField = new JPasswordField(20);
 
         // Crear botones para registrar y volver
@@ -215,70 +217,91 @@ public class Login extends JFrame {
         backButton.setFocusPainted(false);
         backButton.setContentAreaFilled(false);
 
-        // Crear un panel para los botones y posicionarlos uno al lado del otro
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.setOpaque(false); // Hacer el panel transparente
-        buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 15)); // Separación entre botones
-        buttonPanel.add(registerButton);
-        buttonPanel.add(backButton);
-
-        // Crear un layout para posicionar los campos y los botones
+        // Diseño del formulario
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10);
+
+        // Añadir etiquetas y campos al panel
         gbc.gridx = 0;
         gbc.gridy = 0;
-        registerPanel.add(new JLabel("Usuario:"), gbc);
-
+        registerPanel.add(new JLabel("Primer Nombre:"), gbc);
         gbc.gridx = 1;
-        registerPanel.add(userField, gbc);
+        registerPanel.add(firstNameField, gbc);
 
         gbc.gridx = 0;
         gbc.gridy = 1;
-        registerPanel.add(new JLabel("Contraseña:"), gbc);
+        registerPanel.add(new JLabel("Segundo Nombre:"), gbc);
+        gbc.gridx = 1;
+        registerPanel.add(secondNameField, gbc);
 
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        registerPanel.add(new JLabel("Primer Apellido:"), gbc);
+        gbc.gridx = 1;
+        registerPanel.add(firstLastNameField, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 3;
+        registerPanel.add(new JLabel("Segundo Apellido:"), gbc);
+        gbc.gridx = 1;
+        registerPanel.add(secondLastNameField, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        registerPanel.add(new JLabel("Usuario:"), gbc);
+        gbc.gridx = 1;
+        registerPanel.add(usernameField, gbc);
+
+        gbc.gridx = 0;
+        gbc.gridy = 5;
+        registerPanel.add(new JLabel("Contraseña:"), gbc);
         gbc.gridx = 1;
         registerPanel.add(passwordField, gbc);
 
-        // Añadir el panel de botones debajo de los campos de texto
+        // Botones
+        JPanel buttonPanel = new JPanel(new FlowLayout());
+        buttonPanel.setOpaque(false);
+        buttonPanel.add(registerButton);
+        buttonPanel.add(backButton);
+
         gbc.gridx = 1;
-        gbc.gridy = 2;
+        gbc.gridy = 6;
         registerPanel.add(buttonPanel, gbc);
 
         // Acción del botón Registrar
-        registerButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String username = userField.getText();
-                String password = new String(passwordField.getPassword());
+        registerButton.addActionListener(e -> {
+            String firstName = firstNameField.getText();
+            String secondName = secondNameField.getText();
+            String firstLastName = firstLastNameField.getText();
+            String secondLastName = secondLastNameField.getText();
+            String username = usernameField.getText();
+            String password = new String(passwordField.getPassword());
 
-                // Validar que los campos no estén vacíos
-                if (username.isEmpty() || password.isEmpty()) {
-                    JOptionPane.showMessageDialog(registerWindow, "El usuario y la contraseña no pueden estar vacíos.");
-                    return;
-                }
+            // Validar campos vacíos
+            if (firstName.isEmpty() || firstLastName.isEmpty() || username.isEmpty() || password.isEmpty()) {
+                JOptionPane.showMessageDialog(registerWindow, "Por favor, complete todos los campos obligatorios.");
+                return;
+            }
 
-                // Intentar registrar al usuario
-                if (registerUser(username, password)) {
-                    JOptionPane.showMessageDialog(registerWindow, "Registro exitoso");
-                    registerWindow.dispose(); // Cerrar la ventana de registro
-                } else {
-                    JOptionPane.showMessageDialog(registerWindow,
-                            "Error en el registro: El usuario puede que ya exista.");
-                }
+            // Intentar registrar al usuario
+            if (registerUser(firstName, secondName, firstLastName, secondLastName, username, password)) {
+                JOptionPane.showMessageDialog(registerWindow, "Registro exitoso");
+                registerWindow.dispose();
+            } else {
+                JOptionPane.showMessageDialog(registerWindow, "Error en el registro: El usuario puede que ya exista.");
             }
         });
 
         // Acción del botón Volver
         backButton.addActionListener(e -> registerWindow.dispose());
 
-        // Añadir el panel al JFrame
         registerWindow.add(registerPanel);
         registerWindow.setVisible(true);
     }
 
     private boolean checkCredentials(String username, String password) {
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
-            String query = "SELECT * FROM usuario WHERE User_Name = ? AND Password = ?";
+            String query = "SELECT * FROM usuarios WHERE User_Name = ? AND Password = ?";
             PreparedStatement statement = conn.prepareStatement(query);
             statement.setString(1, username);
             statement.setString(2, password);
@@ -290,17 +313,22 @@ public class Login extends JFrame {
         }
     }
 
-    private boolean registerUser(String username, String password) {
+    private boolean registerUser(String firstName, String secondName, String firstLastName,
+            String secondLastName, String username, String password) {
         try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
-            String query = "INSERT INTO usuario (User_Name, Password) VALUES (?, ?)";
+            String query = "{CALL registrarUsuario(?, ?, ?, ?, ?, ?)}";// Cambiar nombre segun el SP
             PreparedStatement statement = conn.prepareStatement(query);
-            statement.setString(1, username);
-            statement.setString(2, password);
+            statement.setString(1, firstName);
+            statement.setString(2, secondName);
+            statement.setString(3, firstLastName);
+            statement.setString(4, secondLastName);
+            statement.setString(5, username);
+            statement.setString(6, password);
             statement.executeUpdate();
             return true;
         } catch (SQLException e) {
-            if (e.getErrorCode() == 1062) {
-                return false; // Error si el usuario ya existe
+            if (e.getErrorCode() == 1062) { // Código de error para duplicado
+                return false;
             }
             e.printStackTrace();
             return false;
