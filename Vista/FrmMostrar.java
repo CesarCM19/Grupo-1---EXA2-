@@ -52,6 +52,35 @@ public class FrmMostrar extends JFrame {
 
     
     
+    /* Metodo para crear boton con icono, 
+    ademas de funciones como la de tooltip para
+    mostrar mensaje cuando  el cursor se pone encima
+    */
+    private JButton crearBoton(String texto, int x, int y, String rutaImagen, String tooltip) {
+        JButton boton = new JButton(texto);
+        boton.setFont(new Font("Arial", Font.BOLD, 16));
+        boton.setBounds(x, y, 250, 50);
+        boton.setBackground(new Color(105, 149, 203));
+        boton.setForeground(Color.WHITE);
+        boton.setFocusPainted(false);
+        boton.setBorder(BorderFactory.createLineBorder(new Color(186, 140, 99), 1, true));
+        boton.setContentAreaFilled(true);
+        boton.setOpaque(true);
+
+        try {
+            ImageIcon iconoOriginal = new ImageIcon(rutaImagen);
+            Image imagenEscalada = iconoOriginal.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+            boton.setIcon(new ImageIcon(imagenEscalada));
+        } catch (Exception e) {
+            System.out.println("Error al cargar el icono: " + e.getMessage());
+        }
+
+        boton.setHorizontalTextPosition(SwingConstants.RIGHT);
+        boton.setIconTextGap(10);
+        boton.setToolTipText(tooltip);
+
+        return boton;
     }
+    
     
 }
