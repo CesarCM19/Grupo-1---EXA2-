@@ -11,7 +11,7 @@ public class MostrarDAO {
         // Método para obtener los usuarios desde la base de datos
         public List<Object[]> obtenerUsuarios() {
             List<Object[]> usuarios = new ArrayList<>();
-            String sql = "Select * from usuarios"; // Consulta SP para obtener los usuarios
+            String sql = "{CALL MostrarUsuarios()}"; // Consulta SP para obtener los usuarios
     
             try (Connection conn = Conexion.conectar(); 
                  CallableStatement stmt = conn.prepareCall(sql); 
