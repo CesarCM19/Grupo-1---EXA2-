@@ -1,15 +1,15 @@
 package Vista;
 
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.List;
 
-public class FrmMostrar {
-    private Jtable tablaUsuarios;
-    Private DefaultTableModel modelotabla;
+public class FrmMostrar extends JFrame {
+    private JTable tablaUsuarios;
+    private DefaultTableModel modeloTabla;
 
     public FrmMostrar(){
         setTitle("Ver Usuarios");
@@ -44,6 +44,8 @@ public class FrmMostrar {
         scrollPane.setBounds(50, 80, 800, 250);
         cuadro.add(scrollPane);
     }
+    
+    
     
     
 }
