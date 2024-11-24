@@ -87,6 +87,9 @@ public class Menu extends JFrame {
         btnMostrar.setFont(new Font("Arial", Font.BOLD, 12));
         btnMostrar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                setVisible(false);  
+                dispose();          
+                new FrmMostrar().setVisible(true);
                 JOptionPane.showMessageDialog(null, "Botón Mostrar presionado");
             }
         });

@@ -68,7 +68,7 @@ public class FrmMostrar extends JFrame {
        public void actionPerformed(ActionEvent e) {
            setVisible(false);
            dispose();
-           new Menu(); // redirecciona al menu
+           new Menu().setVisible(true); // redirecciona al menu
            
        }
    });
