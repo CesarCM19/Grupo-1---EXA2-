@@ -43,9 +43,15 @@ public class FrmMostrar extends JFrame {
         JScrollPane scrollPane = new JScrollPane(tablaUsuarios);
         scrollPane.setBounds(50, 80, 800, 250);
         cuadro.add(scrollPane);
+    
+    
+        // Agregar componentes al JFrame
+        add(cuadro);
+        add(imagenFondo);
+        setVisible(true);
+
+    
+    
     }
-    
-    
-    
     
 }
