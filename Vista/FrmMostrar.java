@@ -117,9 +117,6 @@ private void cargarUsuarios() {
 
         return boton;
     }
-    
-    public static void main(String[] args) {
-        new FrmMostrar();
-    }
+   
     
 }
