@@ -2,6 +2,9 @@ package Vista;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+
+import Modelo.MostrarDAO;
+
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -25,7 +28,7 @@ public class FrmMostrar extends JFrame {
         cuadro.setBounds(150, 110, 900, 400);
 
         // Fondo de la ventana
-        ImageIcon fondo = new ImageIcon("PF_CesarCM_BryanCE\\src\\Images\\tecnologia.jpg");
+        ImageIcon fondo = new ImageIcon("Imagenes\\tecnologia.jpg");
         JLabel imagenFondo = new JLabel(fondo);
         imagenFondo.setSize(fondo.getIconWidth(), fondo.getIconHeight());
 
@@ -44,13 +47,46 @@ public class FrmMostrar extends JFrame {
         scrollPane.setBounds(50, 80, 800, 250);
         cuadro.add(scrollPane);
     
+        // Botón para regresar
+   JButton botonRegresar = crearBoton("Regresar al Menú", 330, 340, "Imagenes\\hogar.png", " Al presionar regresará al menú principal");
+   cuadro.add(botonRegresar);
+
     
         // Agregar componentes al JFrame
         add(cuadro);
         add(imagenFondo);
         setVisible(true);
 
-    
+   
+   
+   // Llenar la tabla con datos
+   cargarUsuarios();
+
+   // Acción del botón regresar
+   botonRegresar.addActionListener(new ActionListener() {
+       @Override
+       public void actionPerformed(ActionEvent e) {
+           setVisible(false);
+           dispose();
+           new Menu(); // redirecciona al menu
+           
+       }
+   });
+}
+
+// Método para cargar datos en la tabla
+private void cargarUsuarios() {
+    MostrarDAO MostrarDAO = new MostrarDAO();
+   List<Object[]> usuarios = MostrarDAO.obtenerUsuarios();
+
+   modeloTabla.setRowCount(0); // Limpiar datos previos
+   for (Object[] usuario : usuarios) {
+       modeloTabla.addRow(usuario);
+   }
+}
+
+
+
     
     /* Metodo para crear boton con icono, 
     ademas de funciones como la de tooltip para
@@ -82,5 +118,8 @@ public class FrmMostrar extends JFrame {
         return boton;
     }
     
+    public static void main(String[] args) {
+        new FrmMostrar();
+    }
     
 }
