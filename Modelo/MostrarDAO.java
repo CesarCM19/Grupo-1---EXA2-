@@ -14,8 +14,8 @@ public class MostrarDAO {
             String sql = "{CALL MostrarUsuarios()}"; // Consulta SP para obtener los usuarios
     
             try (Connection conn = Conexion.conectar(); 
-                 CallableStatement stmt = conn.prepareCall(sql); 
-                 ResultSet rs = stmt.executeQuery()) {
+                CallableStatement stmt = conn.prepareCall(sql); 
+                ResultSet rs = stmt.executeQuery()) {
     
                 while (rs.next()) {
                     Object[] usuario = new Object[7]; // 7 columnas de la tabla "usuarios"
