@@ -1,3 +1,8 @@
+/*
+ * Clase elaborada por Bryan Josué Calderón Espinoza
+ * Carnet C28846
+ */
+
 package Vista;
 
 import javax.swing.*;
@@ -92,7 +97,7 @@ private void cargarUsuarios() {
     ademas de funciones como la de tooltip para
     mostrar mensaje cuando  el cursor se pone encima
     */
-    public JButton crearBoton(String texto, int x, int y, String rutaImagen, String tooltip) {
+    public static JButton crearBoton(String texto, int x, int y, String rutaImagen, String tooltip) {
         JButton boton = new JButton(texto);
         boton.setFont(new Font("Arial", Font.BOLD, 16));
         boton.setBounds(x, y, 250, 50);
