@@ -14,7 +14,7 @@ public class Login extends JFrame {
     private static final String DB_URL = "jdbc:mysql://localhost:3306/github"; // Cambiar a la base de
                                                                                // datos del examen
     private static final String DB_USER = "root";
-    private static final String DB_PASSWORD = "root"; // Cambiar a contraseña de la base de datos del examen
+    private static final String DB_PASSWORD = "myrf0424"; // Cambiar a contraseña de la base de datos del examen
 
     public Login() {
         setTitle("Usuario");
@@ -311,14 +311,11 @@ public class Login extends JFrame {
 
     private boolean checkCredentials(String username, String password) {
         boolean isValid = false;
-        String url = "jdbc:mysql://localhost:3306/github";
-        String user = "root";
-        String pass = "root";
 
         // Consulta SQL para validar el login y la clave
         String query = "SELECT * FROM usuarios WHERE login = ? AND clave = ?";
 
-        try (Connection connection = DriverManager.getConnection(url, user, pass);
+        try (Connection connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
                 PreparedStatement statement = connection.prepareStatement(query)) {
 
             // Establecer parámetros en la consulta
