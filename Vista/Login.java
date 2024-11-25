@@ -290,7 +290,7 @@ public class Login extends JFrame {
                 JOptionPane.showMessageDialog(registerWindow, "Registro exitoso");
                 registerWindow.dispose();
             } else {
-                JOptionPane.showMessageDialog(registerWindow, "Error en el registro: El usuario puede que ya exista.");
+                JOptionPane.showMessageDialog(registerWindow, "Error en el registro: El usuario puede que ya existe.");
             }
         });
 
@@ -334,28 +334,36 @@ public class Login extends JFrame {
     private boolean registerUser(String primerNombre, String segundoNombre, String primerApellido,
             String segundoApellido, String usuario, String clave) {
         try (Connection conexion = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
-            // Nombre del procedimiento almacenado
-            String consulta = "{CALL InsertarUsuario(?, ?, ?, ?, ?, ?)}";
-            PreparedStatement sentencia = conexion.prepareStatement(consulta);
+            // Verificar si el usuario ya existe
+            String consultaVerificar = "SELECT COUNT(*) FROM usuarios WHERE primer_nombre = ? AND segundo_nombre = ? AND primer_apellido = ? AND segundo_apellido = ? AND login = ?";
+            PreparedStatement sentenciaVerificar = conexion.prepareStatement(consultaVerificar);
+            sentenciaVerificar.setString(1, primerNombre);
+            sentenciaVerificar.setString(2, segundoNombre);
+            sentenciaVerificar.setString(3, primerApellido);
+            sentenciaVerificar.setString(4, segundoApellido);
+            sentenciaVerificar.setString(5, usuario);
 
-            // Asignar parámetros
-            sentencia.setString(1, primerNombre);
-            sentencia.setString(2, segundoNombre);
-            sentencia.setString(3, primerApellido);
-            sentencia.setString(4, segundoApellido);
-            sentencia.setString(5, usuario);
-            sentencia.setString(6, clave);
-
-            // Ejecutar el procedimiento
-            sentencia.executeUpdate();
-            return true;
-        } catch (SQLException e) {
-            // Manejar error de clave duplicada (usuario ya existente)
-            if (e.getErrorCode() == 1062) {
-                System.err.println("Error: El usuario ya existe.");
-                return false;
+            ResultSet resultado = sentenciaVerificar.executeQuery();
+            if (resultado.next() && resultado.getInt(1) > 0) {
+                System.out.println("Usuario existente"); // Mostrar mensaje en consola
+                return false; // Salir del método si el usuario ya existe
             }
-            // Imprimir otros errores
+
+            // Insertar nuevo usuario llamando al procedimiento almacenado
+            String consultaInsertar = "{CALL InsertarUsuario(?, ?, ?, ?, ?, ?)}";
+            PreparedStatement sentenciaInsertar = conexion.prepareStatement(consultaInsertar);
+            sentenciaInsertar.setString(1, primerNombre);
+            sentenciaInsertar.setString(2, segundoNombre);
+            sentenciaInsertar.setString(3, primerApellido);
+            sentenciaInsertar.setString(4, segundoApellido);
+            sentenciaInsertar.setString(5, usuario);
+            sentenciaInsertar.setString(6, clave);
+
+            // Ejecutar el procedimiento almacenado
+            sentenciaInsertar.executeUpdate();
+            return true;
+
+        } catch (SQLException e) {
             e.printStackTrace();
             return false;
         }
