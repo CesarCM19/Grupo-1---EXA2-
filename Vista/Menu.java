@@ -1,117 +1,126 @@
 package Vista;
+
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class Menu extends JFrame {
-
-    private JPanel Principal;
+    private JPanel cuadro;
+    private JButton btnIngresar, btnActualizar, btnEliminar, btnMostrar, btnSalir;
 
     public Menu() {
+        // Configuración de la ventana principal
+        setTitle("Menú Principal");
+        setSize(800, 550);
+        setLocationRelativeTo(null); // Centrar la ventana en la pantalla
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(100, 100, 500, 400);
+        setResizable(false);
 
-        // Crear un panel con fondo personalizado
-        Principal = new JPanel() {
-            private Image fondo = new ImageIcon(getClass().getResource("/Imagenes/Fondo.png")).getImage();
+        // Agregar la imagen de fondo
+        ImageIcon fondo = new ImageIcon("Imagenes\\tecnologia.jpg");
+        JLabel imagenFondo = new JLabel(fondo);
+        imagenFondo.setSize(fondo.getIconWidth(), fondo.getIconHeight()); // Ajustar el tamaño al tamaño de la imagen
+        add(imagenFondo);
 
-            @Override
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                if (fondo != null) {
-                    g.drawImage(fondo, 0, 0, getWidth(), getHeight(), this);
-                }
-            }
-        };
+        // Creacion del panel donde van los botones
+        cuadro = new JPanel();
+        cuadro.setBackground(new Color(247, 255, 255, 180));
+        cuadro.setLayout(null);
+        cuadro.setBounds(100, 60, 600, 400);
+        imagenFondo.add(cuadro);
 
-        Principal.setToolTipText("Menu Principal");
-        Principal.setBorder(new EmptyBorder(5, 5, 5, 5));
-        setContentPane(Principal);
-        Principal.setLayout(null);
+        // Título del menú y configuracionn de este
+        JLabel etiquetaTitulo = new JLabel("Bienvenido al Menú Principal");
+        etiquetaTitulo.setFont(new Font("Times New Roman", Font.BOLD, 20));
+        etiquetaTitulo.setBounds(170, 10, 300, 30);
+        etiquetaTitulo.setForeground(new Color(38, 104, 184));
+        cuadro.add(etiquetaTitulo);
 
-        // Centrar la ventana en la pantalla
-        setLocationRelativeTo(null);
+        // Configuración de los botones, tamaño, posición y espacio
+        int botonAncho = 200;
+        int botonAlto = 50;
+        int espacio = 20;
+        int panelCentroX = cuadro.getWidth() / 2 - botonAncho / 2; // Centrar los botones en el panel
 
-        JLabel lblBienvenidosAlRegistro = new JLabel("Bienvenido", SwingConstants.CENTER);
-        lblBienvenidosAlRegistro.setBounds(80, 11, 350, 23);
-        lblBienvenidosAlRegistro.setForeground(Color.WHITE);
-        lblBienvenidosAlRegistro.setFont(new Font("Arial", Font.BOLD, 18));
-        Principal.add(lblBienvenidosAlRegistro);
+        // Crear y agregar los botones
+        btnIngresar = crearBoton("Insertar Usuario", panelCentroX, 60, "Insertar un nuevo usuario",
+                "Imagenes\\Registrar.png");
+        cuadro.add(btnIngresar);
 
-        // Botón "Ingresar"
-        JButton btnIngresar = new JButton("Insertar Usuario");
-        btnIngresar.setBackground(new Color(204, 204, 255));
-        btnIngresar.setForeground(Color.black);
-        btnIngresar.setBounds(90, 65, 100, 30);
-        btnIngresar.setFont(new Font("Arial", Font.BOLD, 12));
-        btnIngresar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                new FrmInsertar();
+        btnActualizar = crearBoton("Actualizar Usuario", panelCentroX, 60 + (botonAlto + espacio),
+                "Actualizar información de un usuario", "Imagenes\\editar.png");
+        cuadro.add(btnActualizar);
+
+        btnMostrar = crearBoton("Mostrar Usuarios", panelCentroX, 60 + 2 * (botonAlto + espacio),
+                "Mostrar lista de usuarios", "Imagenes\\buscar.png");
+        cuadro.add(btnMostrar);
+
+        btnEliminar = crearBoton("Eliminar Usuario", panelCentroX, 60 + 3 * (botonAlto + espacio),
+                "Eliminar un usuario existente", "Imagenes\\eliminar.png");
+        cuadro.add(btnEliminar);
+
+        btnSalir = crearBoton("Salir", panelCentroX, 60 + 4 * (botonAlto + espacio), "Cerrar la aplicación",
+                "Imagenes\\Salir.png");
+        cuadro.add(btnSalir);
+
+        // Funcionalidades de los botones
+
+        // Botón Insertar
+        btnIngresar.addActionListener(e -> {
+            new FrmInsertar();
+        });
+
+        // Botón Actualizar
+        btnActualizar.addActionListener(e -> {
+            new FrmActualizar(); 
+        });
+
+        // Botón Mostrar
+        btnMostrar.addActionListener(e -> {
+            new FrmMostrar(); 
+        });
+
+        // Botón Eliminar
+        btnEliminar.addActionListener(e -> {
+            new FrmEliminar(); 
+        });
+
+        // Botón Salir
+        btnSalir.addActionListener(e -> {
+            int confirm = JOptionPane.showConfirmDialog(null, "¿Está seguro de que desea salir?", "Confirmación",
+                    JOptionPane.YES_NO_OPTION);
+            if (confirm == JOptionPane.YES_OPTION) {
+                JOptionPane.showMessageDialog(null, "Gracias por preferirnos", "Cerrando sistema",
+                        JOptionPane.INFORMATION_MESSAGE);
+                System.exit(0); // Cerrar la aplicación
             }
         });
-        Principal.add(btnIngresar);
 
-        // Botón "Actualizar"
-        JButton btnActualizar = new JButton("Actualizar");
-        btnActualizar.setBackground(new Color(204, 204, 255));
-        btnActualizar.setForeground(Color.black);
-        btnActualizar.setFont(new Font("Arial", Font.BOLD, 12));
-        btnActualizar.setBounds(320, 65, 100, 30);
-        btnActualizar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null, "Botón Actualizar presionado");
-            }
-        });
-        Principal.add(btnActualizar);
-
-        // Botón "Eliminar"
-        JButton btnEliminar = new JButton("Eliminar");
-        btnEliminar.setBackground(new Color(204, 204, 255));
-        btnEliminar.setForeground(Color.BLACK);
-        btnEliminar.setBounds(90, 149, 100, 30);
-        btnEliminar.setFont(new Font("Arial", Font.BOLD, 12));
-        btnEliminar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null, "Botón Eliminar presionado");
-            }
-        });
-        Principal.add(btnEliminar);
-
-        // Botón "Mostrar"
-        JButton btnMostrar = new JButton("Mostrar");
-        btnMostrar.setBackground(new Color(204, 204, 255));
-        btnMostrar.setForeground(Color.BLACK);
-        btnMostrar.setBounds(320, 149, 100, 30);
-        btnMostrar.setFont(new Font("Arial", Font.BOLD, 12));
-        btnMostrar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                setVisible(false);  
-                dispose();          
-                new FrmMostrar().setVisible(true);
-                JOptionPane.showMessageDialog(null, "Botón Mostrar presionado");
-            }
-        });
-        Principal.add(btnMostrar);
-
-        // Botón "Salir"
-        JButton btnSalir = new JButton(new ImageIcon(getClass().getResource("/Imagenes/Salir.png")));
-        btnSalir.setFocusPainted(false);
-        btnSalir.setContentAreaFilled(false);
-        btnSalir.setBorderPainted(false);
-        btnSalir.setBounds(400, 300, 60, 60);
-        btnSalir.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                int a = JOptionPane.showConfirmDialog(null, "¿Está seguro de que desea salir?",
-                        "Confirmación", JOptionPane.YES_NO_OPTION);
-                if (a == JOptionPane.YES_OPTION) {
-                    JOptionPane.showMessageDialog(null, "Gracias por preferirnos", "Cerrando sistema",
-                            JOptionPane.INFORMATION_MESSAGE);
-                    System.exit(0);
-                }
-            }
-        });
-        Principal.add(btnSalir);
+        setVisible(true); 
     }
+
+    // Método para crear botones con íconos y texto
+    private JButton crearBoton(String texto, int x, int y, String tooltip, String rutaIcono) {
+        JButton boton = new JButton(texto);
+        boton.setFont(new Font("Times New Roman", Font.BOLD, 16)); 
+        boton.setBounds(x, y, 200, 50); // tamaño 
+        boton.setBackground(new Color(105, 149, 203)); // Color 
+        boton.setForeground(Color.WHITE); 
+        boton.setFocusPainted(false); 
+        boton.setBorder(BorderFactory.createLineBorder(new Color(186, 140, 99), 1, true)); 
+        boton.setContentAreaFilled(true);
+        boton.setOpaque(true); 
+        boton.setToolTipText(tooltip);
+
+        // Agregar ícono al botón
+        ImageIcon icono = new ImageIcon(rutaIcono); // Cargar el ícono de la ruta proporcionada
+        Image imagen = icono.getImage().getScaledInstance(20, 20, Image.SCALE_SMOOTH); // Ajustar el tamaño del ícono
+        boton.setIcon(new ImageIcon(imagen));
+
+        // Alineación del texto y el ícono
+        boton.setHorizontalTextPosition(SwingConstants.RIGHT); // El texto se muestra a la derecha del ícono
+        boton.setIconTextGap(10); // Espacio entre el ícono y el texto
+
+        return boton; 
+    }
+
 }
