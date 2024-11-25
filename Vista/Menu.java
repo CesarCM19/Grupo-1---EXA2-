@@ -1,7 +1,7 @@
 package Vista;
 
-import javax.swing.*;
 import java.awt.*;
+import javax.swing.*;
 
 public class Menu extends JFrame {
     private JPanel cuadro;
@@ -67,21 +67,25 @@ public class Menu extends JFrame {
         // Botón Insertar
         btnIngresar.addActionListener(e -> {
             new FrmInsertar();
+            dispose();
         });
 
         // Botón Actualizar
         btnActualizar.addActionListener(e -> {
-            new FrmActualizar(); 
+            new FrmActualizar();
+            dispose();
         });
 
         // Botón Mostrar
         btnMostrar.addActionListener(e -> {
-            new FrmMostrar(); 
+            new FrmMostrar();
+            dispose();
         });
 
         // Botón Eliminar
         btnEliminar.addActionListener(e -> {
-            new FrmEliminar(); 
+            new FrmEliminar();
+            dispose();
         });
 
         // Botón Salir

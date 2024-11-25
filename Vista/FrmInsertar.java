@@ -1,12 +1,10 @@
 //Clase realizada por César Campos - C31592
 package Vista;
 
-import javax.swing.*;
-
 import Modelo.InsertarDAO;
-
 import java.awt.*;
 import java.awt.event.*;
+import javax.swing.*;
 
     public class FrmInsertar extends JFrame {
         public FrmInsertar(){
@@ -92,7 +90,9 @@ import java.awt.event.*;
         @Override
         public void actionPerformed (ActionEvent e){
             Ventana.dispose();
-            new Menu().setVisible(true);
+            setVisible(false);
+            dispose();
+            new Menu().setVisible(true); // 
         }
     });
     }//Fin del constructor
