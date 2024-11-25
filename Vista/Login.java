@@ -46,47 +46,57 @@ public class Login extends JFrame {
         loginPanel = new JPanel();
         loginPanel.setLayout(new BorderLayout());
         loginPanel.setOpaque(false);
+
+        // Crear los iconos
         ImageIcon loginIcon = new ImageIcon("Imagenes/ingresarUsuario.png");
         ImageIcon registerIcon = new ImageIcon("Imagenes/agregarUsuario.png");
-        JButton loginButton = new JButton(loginIcon);
+
+        // Crear botones con texto y icono
+        JButton loginButton = new JButton("Ingresar", loginIcon);
         loginButton.setFocusPainted(false);
         loginButton.setContentAreaFilled(false);
+        loginButton.setVerticalTextPosition(SwingConstants.BOTTOM); // Coloca el texto debajo de la imagen
+        loginButton.setHorizontalTextPosition(SwingConstants.CENTER); // Centra el texto horizontalmente
 
-        JButton registerSwitchButton = new JButton(registerIcon);
+        JButton registerSwitchButton = new JButton("Registrar", registerIcon);
         registerSwitchButton.setFocusPainted(false);
         registerSwitchButton.setContentAreaFilled(false);
+        registerSwitchButton.setVerticalTextPosition(SwingConstants.BOTTOM); // Coloca el texto debajo de la imagen
+        registerSwitchButton.setHorizontalTextPosition(SwingConstants.CENTER); // Centra el texto horizontalmente
 
+        // Crear un panel para los botones
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 100, 200)); // Botones principales
         buttonPanel.setOpaque(false);
         buttonPanel.add(loginButton);
         buttonPanel.add(registerSwitchButton);
         loginPanel.add(buttonPanel, BorderLayout.CENTER);
 
+        // Agregar acción para el botón de login
         loginButton.addActionListener(new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {// Abrir la ventana de logueo con campos de usuario y contraseña
+            public void actionPerformed(ActionEvent e) {
                 openLoginWindow();
             }
         });
 
+        // Agregar acción para el botón de registro
         registerSwitchButton.addActionListener(e -> openRegisterWindow());
-
         parentPanel.add(loginPanel, "Login");
     }
 
     private void createRegisterPanel(JPanel parentPanel) {
         registerPanel = new JPanel();
         registerPanel.setLayout(new BorderLayout());
-        registerPanel.setOpaque(false); // Hacer transparente el panel para que se vea el fondo
+        registerPanel.setOpaque(false);
 
-        // Cargar las imágenes para los botones
+        // Imágenes de botones
         ImageIcon registerIcon = new ImageIcon("Imagenes/logUsu.png");
         ImageIcon loginSwitchIcon = new ImageIcon("Imagenes/Salir.png");
 
-        // Crear los botones con las imágenes
+        // Botones con imágenes
         JButton registerButton = new JButton(registerIcon);
-        registerButton.setFocusPainted(false); // Quitar el borde cuando el botón está presionado
-        registerButton.setContentAreaFilled(false); // Eliminar el fondo blanco del botón
+        registerButton.setFocusPainted(false);
+        registerButton.setContentAreaFilled(false);
 
         JButton loginSwitchButton = new JButton(loginSwitchIcon);
         loginSwitchButton.setFocusPainted(false);
@@ -130,10 +140,12 @@ public class Login extends JFrame {
         JPasswordField passwordField = new JPasswordField(20);
 
         // Crear un botón para iniciar sesión con una imagen
-        ImageIcon loginIcon = new ImageIcon("Imagenes/ingresarUsu.png"); // Cargar la imagen para el botón
-        JButton loginButton = new JButton(loginIcon);
-        loginButton.setFocusPainted(false); // Quitar el borde cuando el botón está presionado
-        loginButton.setContentAreaFilled(false); // Eliminar el fondo blanco del botón
+        ImageIcon loginIcon = new ImageIcon("Imagenes/ingresarUsu.png");
+        JButton loginButton = new JButton("Iniciar sesión", loginIcon); // Añadir texto debajo de la imagen
+        loginButton.setFocusPainted(false);
+        loginButton.setContentAreaFilled(false);
+        loginButton.setVerticalTextPosition(SwingConstants.BOTTOM); // Coloca el texto debajo de la imagen
+        loginButton.setHorizontalTextPosition(SwingConstants.CENTER); // Centra el texto horizontalmente
 
         // Crear un layout para posicionar los componentes
         GridBagConstraints gbc = new GridBagConstraints();
@@ -211,13 +223,17 @@ public class Login extends JFrame {
         JPasswordField passwordField = new JPasswordField(20);
 
         // Crear botones para registrar y volver
-        JButton registerButton = new JButton(new ImageIcon("Imagenes/logUsu.png"));
+        JButton registerButton = new JButton("Registrar", new ImageIcon("Imagenes/logUsu.png"));
         registerButton.setFocusPainted(false);
         registerButton.setContentAreaFilled(false);
+        registerButton.setVerticalTextPosition(SwingConstants.BOTTOM); // Coloca el texto debajo de la imagen
+        registerButton.setHorizontalTextPosition(SwingConstants.CENTER); // Centra el texto horizontalmente
 
-        JButton backButton = new JButton(new ImageIcon("Imagenes/Salir.png"));
+        JButton backButton = new JButton("Volver", new ImageIcon("Imagenes/Salir.png"));
         backButton.setFocusPainted(false);
         backButton.setContentAreaFilled(false);
+        backButton.setVerticalTextPosition(SwingConstants.BOTTOM); // Coloca el texto debajo de la imagen
+        backButton.setHorizontalTextPosition(SwingConstants.CENTER); // Centra el texto horizontalmente
 
         // Diseño del formulario
         GridBagConstraints gbc = new GridBagConstraints();
