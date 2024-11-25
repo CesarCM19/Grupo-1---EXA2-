@@ -1,4 +1,5 @@
 package Vista;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -301,17 +302,33 @@ public class Login extends JFrame {
     }
 
     private boolean checkCredentials(String username, String password) {
-        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
-            String query = "SELECT * FROM usuarios WHERE User_Name = ? AND Password = ?";
-            PreparedStatement statement = conn.prepareStatement(query);
+        boolean isValid = false;
+        String url = "jdbc:mysql://localhost:3306/github";
+        String user = "root";
+        String pass = "myrf0424";
+
+        // Consulta SQL para validar el login y la clave
+        String query = "SELECT * FROM usuarios WHERE login = ? AND clave = ?";
+
+        try (Connection connection = DriverManager.getConnection(url, user, pass);
+                PreparedStatement statement = connection.prepareStatement(query)) {
+
+            // Establecer parámetros en la consulta
             statement.setString(1, username);
             statement.setString(2, password);
-            ResultSet rs = statement.executeQuery();
-            return rs.next();
+
+            // Ejecutar la consulta
+            try (ResultSet resultSet = statement.executeQuery()) {
+                // Si el ResultSet tiene resultados, las credenciales son válidas
+                isValid = resultSet.next();
+            }
         } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
+            // Manejo de errores
+            e.printStackTrace(); // Para depuración
+            JOptionPane.showMessageDialog(null, "Error al conectar con la base de datos: " + e.getMessage());
         }
+
+        return isValid;
     }
 
     private boolean registerUser(String firstName, String secondName, String firstLastName,
