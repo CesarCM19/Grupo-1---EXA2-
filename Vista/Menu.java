@@ -41,14 +41,14 @@ public class Menu extends JFrame {
         Principal.add(lblBienvenidosAlRegistro);
 
         // Botón "Ingresar"
-        JButton btnIngresar = new JButton("Ingresar");
+        JButton btnIngresar = new JButton("Insertar Usuario");
         btnIngresar.setBackground(new Color(204, 204, 255));
         btnIngresar.setForeground(Color.black);
         btnIngresar.setBounds(90, 65, 100, 30);
         btnIngresar.setFont(new Font("Arial", Font.BOLD, 12));
         btnIngresar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null, "Botón Ingresar presionado");
+                new FrmInsertar();
             }
         });
         Principal.add(btnIngresar);

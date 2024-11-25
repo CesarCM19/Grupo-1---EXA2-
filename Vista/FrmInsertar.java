@@ -34,8 +34,8 @@ import java.awt.event.*;
     JTextField Usuariotxt = new JTextField();
     JLabel Contraseña = new JLabel("Contraseña: ");
     JTextField Contratxt = new JTextField();
-    JButton btnInsertar = new JButton("Insertar Usuario");
-    JButton btnAtras = new JButton("Atrás");
+    JButton btnInsertar = FrmMostrar.crearBoton("Crear Usuario",400,750,"Imagenes\\ingresarUsu.png","Crear Usuario");
+    JButton btnAtras = FrmMostrar.crearBoton("Atrás",180,750,"Imagenes\\Salir.png","Regresar al menú");
 
     //*Ubicaciones */
     msjInsertar.setBounds(270,55,300,50);
@@ -52,10 +52,10 @@ import java.awt.event.*;
         Usuariotxt.setBounds(250,555,300,50);
     Contraseña.setBounds(350,605,200,50);
         Contratxt.setBounds(250,655,300,50);
-    btnInsertar.setBounds(400,750,200,30);
-    btnAtras.setBounds(180,750,200,30);
+    btnInsertar.setSize(200,30);
+    btnAtras.setSize(200,30);
 
-    //*Agregación Elementos gráficos */s
+    //*Agregación Elementos gráficos */
     Ventana.add(msjInsertar);
     Ventana.add(Nombre1);
     Ventana.add(Nombre2);
@@ -86,11 +86,16 @@ import java.awt.event.*;
             String Pass = Contratxt.getText();
             new Modelo.Conexion();
             InsertarDAO.InsertarUsuario(PNombre, SNombre, PApellido,SApellido,User, Pass);
-
+        }
+    });
+    btnAtras.addActionListener(new ActionListener (){
+        @Override
+        public void actionPerformed (ActionEvent e){
+            Ventana.dispose();
+            new Menu().setVisible(true);
         }
     });
     }//Fin del constructor
-
     public static void main(String[] args) {
         new FrmInsertar();
     }
