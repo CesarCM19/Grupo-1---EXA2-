@@ -15,15 +15,13 @@ import java.awt.event.*;
     ImageIcon Fondo = new ImageIcon("Imagenes\\tecnologia.jpg"); 
     JLabel Imagen = new JLabel(Fondo);
     JFrame Ventana = new JFrame("Ingresar Usuario");
-    Ventana.setSize(800,1000);
+    Ventana.setSize(800,900);
     Ventana.setLocationRelativeTo(null);
     Ventana.setDefaultCloseOperation(EXIT_ON_CLOSE);
     
     //*Textos y campos */
     JLabel msjInsertar = new JLabel("Insertar un usuario");
     msjInsertar.setFont(new Font("Arial", Font.BOLD, 30));
-    JLabel Cedula = new JLabel("Cédula: ");
-    JTextField Cedulatxt = new JTextField();
     JLabel Nombre1 = new JLabel("Primer Nombre: ");
     JTextField N1txt= new JTextField();
     JLabel Nombre2 = new JLabel("Segundo Nombre: ");
@@ -41,28 +39,24 @@ import java.awt.event.*;
 
     //*Ubicaciones */
     msjInsertar.setBounds(270,55,300,50);
-    Cuadro.setBounds(100,30,600,900);
-    Cedula.setBounds(370,105,50,50);
-        Cedulatxt.setBounds(250,155,300,50);
-    Nombre1.setBounds(350,205,100,50);
-        N1txt.setBounds(250,255,300,50);
-    Nombre2.setBounds(350,305,190,50);
-        N2txt.setBounds(250,355,300,50);
-    Ape1.setBounds(350,405,100,50);
-        Ape1txt.setBounds(250,455,300,50);
-    Ape2.setBounds(350,505,200,50);
-        Ape2txt.setBounds(250,555,300,50);
-    Usuario.setBounds(350,605,200,50);
-        Usuariotxt.setBounds(250,655,300,50);
-    Contraseña.setBounds(350,705,200,50);
-        Contratxt.setBounds(250,755,300,50);
-    btnInsertar.setBounds(400,850,200,30);
-    btnAtras.setBounds(180,850,200,30);
+    Cuadro.setBounds(100,30,600,800);
+    Nombre1.setBounds(350,105,100,50);
+        N1txt.setBounds(250,155,300,50);
+    Nombre2.setBounds(350,205,190,50);
+        N2txt.setBounds(250,255,300,50);
+    Ape1.setBounds(350,305,100,50);
+        Ape1txt.setBounds(250,355,300,50);
+    Ape2.setBounds(350,405,200,50);
+        Ape2txt.setBounds(250,455,300,50);
+    Usuario.setBounds(350,505,200,50);
+        Usuariotxt.setBounds(250,555,300,50);
+    Contraseña.setBounds(350,605,200,50);
+        Contratxt.setBounds(250,655,300,50);
+    btnInsertar.setBounds(400,750,200,30);
+    btnAtras.setBounds(180,750,200,30);
 
     //*Agregación Elementos gráficos */s
     Ventana.add(msjInsertar);
-    Ventana.add(Cedula);
-    Ventana.add(Cedulatxt);
     Ventana.add(Nombre1);
     Ventana.add(Nombre2);
     Ventana.add(Ape1);
@@ -84,15 +78,14 @@ import java.awt.event.*;
     //*Acciones de los botones */
     btnInsertar.addActionListener(new ActionListener (){
         public void actionPerformed ( ActionEvent e){
-            String Cédula = Cedulatxt.getText();
             String PNombre = N1txt.getText();
             String SNombre = N2txt.getText();
             String PApellido = Ape1txt.getText();
-            String SApellido = Ape2.getText();
+            String SApellido = Ape2txt.getText();
             String User = Usuariotxt.getText();
             String Pass = Contratxt.getText();
             new Modelo.Conexion();
-            InsertarDAO.InsertarUsuario(Cédula,PNombre, SNombre, PApellido,SApellido,User, Pass);
+            InsertarDAO.InsertarUsuario(PNombre, SNombre, PApellido,SApellido,User, Pass);
 
         }
     });
