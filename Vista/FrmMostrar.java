@@ -5,15 +5,13 @@
 
 package Vista;
 
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-
 import Modelo.MostrarDAO;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 
 public class FrmMostrar extends JFrame {
     private JTable tablaUsuarios;
@@ -71,9 +69,9 @@ public class FrmMostrar extends JFrame {
    botonRegresar.addActionListener(new ActionListener() {
        @Override
        public void actionPerformed(ActionEvent e) {
-           setVisible(false);
+             setVisible(false);
            dispose();
-           new Menu().setVisible(true); // redirecciona al menu
+           new Menu().setVisible(true); // 
            
        }
    });

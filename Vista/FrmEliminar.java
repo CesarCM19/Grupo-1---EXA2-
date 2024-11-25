@@ -1,9 +1,9 @@
 package Vista;
 
 import java.awt.*;
-import javax.swing.*;
 import java.awt.event.*;
 import java.sql.*;
+import javax.swing.*;
 
 public class FrmEliminar extends JFrame {
     private JTextField txtBuscarIdentificacion;
@@ -58,7 +58,9 @@ public class FrmEliminar extends JFrame {
         btnRegresar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                dispose(); // Cierra esta ventana y regresa al menú principal
+                dispose();
+                Menu menu = new Menu();
+                menu.setVisible(true);
             }
         });
 
@@ -91,7 +93,7 @@ public class FrmEliminar extends JFrame {
 
         int confirmar = JOptionPane.showConfirmDialog(this, "¿Está seguro de eliminar al usuario con ID: " + idUsuario + "?", "Confirmar eliminación", JOptionPane.YES_NO_OPTION);
         if (confirmar == JOptionPane.YES_OPTION) {
-            try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/nombre_base_datos", "root", "tu_contraseña")) {
+            try (Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/github", "root", "root")) {
                 CallableStatement stmt = conn.prepareCall("{CALL EliminarUsuario(?)}");
                 stmt.setInt(1, Integer.parseInt(idUsuario));
                 int filasAfectadas = stmt.executeUpdate();
