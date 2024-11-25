@@ -7,6 +7,7 @@ public class Menu extends JFrame {
     private JPanel cuadro;
     private JButton btnIngresar, btnActualizar, btnEliminar, btnMostrar, btnSalir;
 
+    @SuppressWarnings("unused")
     public Menu() {
         // Configuración de la ventana principal
         setTitle("Menú Principal");
