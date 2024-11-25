@@ -14,7 +14,7 @@ public class Login extends JFrame {
     private static final String DB_URL = "jdbc:mysql://localhost:3306/github"; // Cambiar a la base de
                                                                                // datos del examen
     private static final String DB_USER = "root";
-    private static final String DB_PASSWORD = "myrf0424"; // Cambiar a contraseña de la base de datos del examen
+    private static final String DB_PASSWORD = "root"; // Cambiar a contraseña de la base de datos del examen
 
     public Login() {
         setTitle("Usuario");

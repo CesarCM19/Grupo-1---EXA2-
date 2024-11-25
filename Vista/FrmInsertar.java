@@ -96,7 +96,4 @@ import javax.swing.*;
         }
     });
     }//Fin del constructor
-    public static void main(String[] args) {
-        new FrmInsertar();
-    }
 }//Fin de la clase
