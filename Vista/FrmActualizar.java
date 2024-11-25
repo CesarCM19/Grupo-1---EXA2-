@@ -41,7 +41,20 @@ public class FrmActualizar extends JFrame {
         txtBuscarIdentificacion.setBounds(180, 50, 250, 30);
         cuadro.add(txtBuscarIdentificacion);
 
-        btnBuscar = crearBoton("Buscar", 450, 50, "Buscar Usuario");
+        // Botón Buscar con ícono
+        btnBuscar = new JButton();
+        btnBuscar.setBounds(450, 50, 60, 30);
+        btnBuscar.setToolTipText("Buscar Usuario");
+
+        // Cargar la imagen del ícono
+        ImageIcon buscarIcono = new ImageIcon("Imagenes\\buscar.png");
+        Image imagenEscalada = buscarIcono.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH); 
+ 
+        btnBuscar.setIcon(new ImageIcon(imagenEscalada));
+        btnBuscar.setBorderPainted(false);
+        btnBuscar.setFocusPainted(false); 
+        btnBuscar.setContentAreaFilled(false);
+
         cuadro.add(btnBuscar);
 
         JLabel lblNombre1 = new JLabel("Primer Nombre:");
@@ -92,9 +105,7 @@ public class FrmActualizar extends JFrame {
         cuadro.add(btnRegresar);
 
         btnBuscar.addActionListener(e -> buscarUsuario());
-
         btnActualizar.addActionListener(e -> actualizarUsuario());
-
         btnRegresar.addActionListener(e -> {
             dispose();
             Menu menu = new Menu();
@@ -184,4 +195,3 @@ public class FrmActualizar extends JFrame {
         txtApellido2.setText("");
     }
 }
-
