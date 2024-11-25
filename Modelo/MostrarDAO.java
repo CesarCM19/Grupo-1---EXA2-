@@ -18,14 +18,15 @@ public class MostrarDAO {
                 ResultSet rs = stmt.executeQuery()) {
     
                 while (rs.next()) {
-                    Object[] usuario = new Object[7]; // 7 columnas de la tabla "usuarios"
-                    usuario[0] = rs.getInt("idUsuarios");
-                    usuario[1] = rs.getString("Primer_Nombre");
-                    usuario[2] = rs.getString("Segundo_Nombre");
-                    usuario[3] = rs.getString("Primer_Apellido");
-                    usuario[4] = rs.getString("Segundo_Apellido");
-                    usuario[5] = rs.getString("Login");
-                    usuario[6] = rs.getString("Clave");
+                    Object[] usuario = new Object[8]; // 8 columnas de la tabla "usuarios"
+                    usuario[0] = rs.getInt("id_usuario");
+                    usuario[1] = rs.getString("primer_nombre");
+                    usuario[2] = rs.getString("segundo_nombre");
+                    usuario[3] = rs.getString("primer_apellido");
+                    usuario[4] = rs.getString("segundo_apellido");
+                    usuario[5] = rs.getString("login");
+                    usuario[6] = rs.getString("clave");
+                    usuario[7] = rs.getString("fecha_creacion");
                     usuarios.add(usuario); // Agregar fila a la lista
                 }
     

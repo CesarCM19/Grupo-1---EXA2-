@@ -43,7 +43,7 @@ public class FrmMostrar extends JFrame {
         cuadro.add(etiquetaTitulo);
 
         // Configuración de la tabla
-        String[] columnas = {"ID", "Primer Nombre", "Segundo Nombre", "Primer Apellido", "Segundo Apellido", "Login", "Clave"};
+        String[] columnas = {"ID", "Primer Nombre", "Segundo Nombre", "Primer Apellido", "Segundo Apellido", "Login", "Clave", "Fecha Creación"};
         modeloTabla = new DefaultTableModel(columnas, 0);
         tablaUsuarios = new JTable(modeloTabla);
         JScrollPane scrollPane = new JScrollPane(tablaUsuarios);
