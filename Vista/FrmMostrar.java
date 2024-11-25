@@ -92,7 +92,7 @@ private void cargarUsuarios() {
     ademas de funciones como la de tooltip para
     mostrar mensaje cuando  el cursor se pone encima
     */
-    public static JButton crearBoton(String texto, int x, int y, String rutaImagen, String tooltip) {
+    public JButton crearBoton(String texto, int x, int y, String rutaImagen, String tooltip) {
         JButton boton = new JButton(texto);
         boton.setFont(new Font("Arial", Font.BOLD, 16));
         boton.setBounds(x, y, 250, 50);
@@ -117,6 +117,9 @@ private void cargarUsuarios() {
 
         return boton;
     }
-   
+
+   public static void main(String[] args) {
+    new FrmMostrar();
+   }
     //comentario
 }
