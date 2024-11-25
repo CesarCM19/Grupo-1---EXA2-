@@ -331,23 +331,31 @@ public class Login extends JFrame {
         return isValid;
     }
 
-    private boolean registerUser(String firstName, String secondName, String firstLastName,
-            String secondLastName, String username, String password) {
-        try (Connection conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
-            String query = "{CALL registrarUsuario(?, ?, ?, ?, ?, ?)}";// Cambiar nombre segun el SP
-            PreparedStatement statement = conn.prepareStatement(query);
-            statement.setString(1, firstName);
-            statement.setString(2, secondName);
-            statement.setString(3, firstLastName);
-            statement.setString(4, secondLastName);
-            statement.setString(5, username);
-            statement.setString(6, password);
-            statement.executeUpdate();
+    private boolean registerUser(String primerNombre, String segundoNombre, String primerApellido,
+            String segundoApellido, String usuario, String clave) {
+        try (Connection conexion = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD)) {
+            // Nombre del procedimiento almacenado
+            String consulta = "{CALL InsertarUsuario(?, ?, ?, ?, ?, ?)}";
+            PreparedStatement sentencia = conexion.prepareStatement(consulta);
+
+            // Asignar parámetros
+            sentencia.setString(1, primerNombre);
+            sentencia.setString(2, segundoNombre);
+            sentencia.setString(3, primerApellido);
+            sentencia.setString(4, segundoApellido);
+            sentencia.setString(5, usuario);
+            sentencia.setString(6, clave);
+
+            // Ejecutar el procedimiento
+            sentencia.executeUpdate();
             return true;
         } catch (SQLException e) {
-            if (e.getErrorCode() == 1062) { // Código de error para duplicado
+            // Manejar error de clave duplicada (usuario ya existente)
+            if (e.getErrorCode() == 1062) {
+                System.err.println("Error: El usuario ya existe.");
                 return false;
             }
+            // Imprimir otros errores
             e.printStackTrace();
             return false;
         }
