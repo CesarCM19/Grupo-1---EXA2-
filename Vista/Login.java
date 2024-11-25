@@ -141,11 +141,11 @@ public class Login extends JFrame {
 
         // Crear un botón para iniciar sesión con una imagen
         ImageIcon loginIcon = new ImageIcon("Imagenes/ingresarUsu.png");
-        JButton loginButton = new JButton("Iniciar sesión", loginIcon); // Añadir texto debajo de la imagen
+        JButton loginButton = new JButton("Iniciar sesión", loginIcon);
         loginButton.setFocusPainted(false);
         loginButton.setContentAreaFilled(false);
-        loginButton.setVerticalTextPosition(SwingConstants.BOTTOM); // Coloca el texto debajo de la imagen
-        loginButton.setHorizontalTextPosition(SwingConstants.CENTER); // Centra el texto horizontalmente
+        loginButton.setVerticalTextPosition(SwingConstants.BOTTOM);
+        loginButton.setHorizontalTextPosition(SwingConstants.CENTER);
 
         // Crear un layout para posicionar los componentes
         GridBagConstraints gbc = new GridBagConstraints();
@@ -178,21 +178,15 @@ public class Login extends JFrame {
                 // Verificar las credenciales
                 if (checkCredentials(username, password)) {
                     JOptionPane.showMessageDialog(loginWindow, "Inicio de sesión exitoso");
-
-                    // Cerrar la ventana de login
                     loginWindow.dispose();
-
-                    // Crear y mostrar la ventana del menú
                     Menu menuWindow = new Menu();
-                    menuWindow.setVisible(true); // Mostrar la ventana Menu
-                    setVisible(false); // Cerrar la ventana de login de manera explícita
+                    menuWindow.setVisible(true);
+                    setVisible(false);
                 } else {
                     JOptionPane.showMessageDialog(loginWindow, "Usuario o contraseña incorrectos");
                 }
             }
         });
-
-        // Añadir el panel al JFrame
         loginWindow.add(loginPanel);
         loginWindow.setVisible(true);
     }
@@ -226,16 +220,14 @@ public class Login extends JFrame {
         JButton registerButton = new JButton("Registrar", new ImageIcon("Imagenes/logUsu.png"));
         registerButton.setFocusPainted(false);
         registerButton.setContentAreaFilled(false);
-        registerButton.setVerticalTextPosition(SwingConstants.BOTTOM); // Coloca el texto debajo de la imagen
-        registerButton.setHorizontalTextPosition(SwingConstants.CENTER); // Centra el texto horizontalmente
+        registerButton.setVerticalTextPosition(SwingConstants.BOTTOM);
+        registerButton.setHorizontalTextPosition(SwingConstants.CENTER);
 
         JButton backButton = new JButton("Volver", new ImageIcon("Imagenes/Salir.png"));
         backButton.setFocusPainted(false);
         backButton.setContentAreaFilled(false);
-        backButton.setVerticalTextPosition(SwingConstants.BOTTOM); // Coloca el texto debajo de la imagen
-        backButton.setHorizontalTextPosition(SwingConstants.CENTER); // Centra el texto horizontalmente
-
-        // Diseño del formulario
+        backButton.setVerticalTextPosition(SwingConstants.BOTTOM);
+        backButton.setHorizontalTextPosition(SwingConstants.CENTER);
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10);
 
@@ -361,8 +353,7 @@ public class Login extends JFrame {
 
             ResultSet resultado = sentenciaVerificar.executeQuery();
             if (resultado.next() && resultado.getInt(1) > 0) {
-                System.out.println("Usuario existente"); // Mostrar mensaje en consola
-                return false; // Salir del método si el usuario ya existe
+                return false;
             }
 
             // Insertar nuevo usuario llamando al procedimiento almacenado
